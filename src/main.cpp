@@ -24,8 +24,13 @@ int main() {
 
     cam.aspect_ratio      = 16.0 / 9.0;
     cam.image_width       = 400;
-    cam.samples_per_pixel = 64;
-    cam.max_depth         = 32;
+    cam.samples_per_pixel = 100;
+    cam.max_depth         = 50;
+
+    cam.vfov     = 40;
+    cam.lookfrom = point3(-2,2,1);
+    cam.lookat   = point3(0,0,-1);
+    cam.vup      = vec3(0,1,0);
 
     cam.render(world);
 }
