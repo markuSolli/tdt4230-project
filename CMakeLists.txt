@@ -99,3 +99,11 @@ target_link_libraries (${PROJECT_NAME}
                        ${GLFW_LIBRARIES}
                        ${GLAD_LIBRARIES})
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT glowbox)
+
+add_custom_target(image
+    COMMAND ./graphics_project > image.ppm
+    COMMAND sudo open image.ppm
+    DEPENDS ${PROJECT_NAME}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Generate image.ppm and open"
+)
