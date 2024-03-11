@@ -1,45 +1,21 @@
-#ifndef SPHERE_H
-#define SPHERE_H
+#pragma once
 
-#include "util.h"
+#include <memory>
+
 #include "hittable.h"
+#include "ray.h"
+#include "interval.h"
 
-class sphere : public hittable {
+using std::shared_ptr;
+
+class Sphere : public Hittable {
   public:
-    sphere(point3 _center, double _radius, shared_ptr<material> _material)
-      : center(_center), radius(_radius), mat(_material) {}
+    Sphere(point3 _center, double _radius, shared_ptr<Material> _material);
 
-    bool hit(const ray &r, interval ray_t, hit_record &rec) const override {
-        vec3 oc = r.origin() - center;
-        double a = r.direction().length_squared();
-        double half_b = dot(oc, r.direction());
-        double c = oc.length_squared() - radius*radius;
-
-        double discriminant = half_b*half_b - a*c;
-        if (discriminant < 0) return false;
-        double sqrtd = sqrt(discriminant);
-
-        // Find the nearest root that lies in the acceptable range.
-        double root = (-half_b - sqrtd) / a;
-        if (!ray_t.surrounds(root)) {
-            root = (-half_b + sqrtd) / a;
-            if (!ray_t.surrounds(root))
-                return false;
-        }
-
-        rec.t = root;
-        rec.p = r.at(rec.t);
-        vec3 outward_normal = (rec.p - center) / radius;
-        rec.set_face_normal(r, outward_normal);
-        rec.mat = mat;
-
-        return true;
-    }
+    bool hit(const Ray &r, Interval ray_t, HitRecord &rec) const override;
 
   private:
     point3 center;
     double radius;
-    shared_ptr<material> mat;
+    shared_ptr<Material> mat;
 };
-
-#endif

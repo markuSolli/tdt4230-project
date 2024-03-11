@@ -1,34 +1,23 @@
-#ifndef INTERVAL_H
-#define INTERVAL_H
+#pragma once
 
-#include <util.h>
+#include "util.h"
 
-class interval {
+class Interval {
   public:
     double min, max;
 
-    interval() : min(+infinity), max(-infinity) {} // Default interval is empty
+    Interval();
 
-    interval(double _min, double _max) : min(_min), max(_max) {}
+    Interval(double _min, double _max);
 
-    bool contains(double x) const {
-        return min <= x && x <= max;
-    }
+    bool contains(double x) const;
 
-    bool surrounds(double x) const {
-        return min < x && x < max;
-    }
+    bool surrounds(double x) const;
 
-    double clamp(double x) const {
-        if (x < min) return min;
-        if (x > max) return max;
-        return x;
-    }
+    double clamp(double x) const;
 
-    static const interval empty, universe;
+    static const Interval empty, universe;
 };
 
-const static interval empty   (+infinity, -infinity);
-const static interval universe(-infinity, +infinity);
-
-#endif
+const static Interval empty   (+INF, -INF);
+const static Interval universe(-INF, +INF);
