@@ -43,8 +43,9 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT g
 
 add_custom_target(image
     COMMAND ./graphics_project > image.ppm
-    COMMAND sudo open image.ppm
+    COMMAND ffmpeg -y -i image.ppm image.png -loglevel quiet
+    COMMAND sudo open image.png
     DEPENDS ${PROJECT_NAME}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    COMMENT "Generate image.ppm and open"
+    COMMENT "Generate image and open"
 )
