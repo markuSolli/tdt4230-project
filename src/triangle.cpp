@@ -33,14 +33,14 @@ bool Triangle::hit(const Ray &r, Interval ray_t, HitRecord &rec) const {
     // Compute t to find intersection point
     double t = inv_det * dot(edge2, s_cross_e1);
 
-    if (t > epsilon) {
-        rec.t = t;
-        rec.p = r.at(rec.t);
-        vec3 outward_normal = unit_vector(cross(edge1, edge2));
-        rec.set_face_normal(r, outward_normal);
-        rec.mat = mat;
-        return true;
+    if (!ray_t.surrounds(t)) {
+        return false;
     }
 
-    return false;
+    rec.t = t;
+    rec.p = r.at(rec.t);
+    vec3 outward_normal = unit_vector(cross(edge1, edge2));
+    rec.set_face_normal(r, outward_normal);
+    rec.mat = mat;
+    return true;
 }

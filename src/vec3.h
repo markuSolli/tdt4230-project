@@ -5,18 +5,12 @@
 
 class vec3 {
   public:
-    double e[3];
+    double x, y, z;
 
     vec3();
-    vec3(double e0, double e1, double e2);
-
-    double x() const;
-    double y() const;
-    double z() const;
+    vec3(double _x, double _y, double _z);
 
     vec3 operator-() const;
-    double operator[](int i) const;
-    double& operator[](int i);
 
     vec3& operator+=(const vec3 &v);
 
@@ -33,6 +27,14 @@ class vec3 {
     static vec3 random();
 
     static vec3 random(double min, double max);
+};
+
+class vec3i {
+  public:
+  int x, y, z;
+
+  vec3i();
+  vec3i(int _x, int _y, int _z);
 };
 
 // point3 is just an alias for vec3, but useful for geometric clarity in the code.
