@@ -47,3 +47,10 @@ add_custom_target(image
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Converting to png"
 )
+
+add_custom_target(video
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/generate_video.sh
+    DEPENDS ${PROJECT_NAME}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Generating mp4"
+)

@@ -6,17 +6,18 @@
 
 class Camera {
   public:
-    double aspect_ratio      = 1.0;
-    int    image_width       = 100;
-    int    samples_per_pixel = 10;
-    int    max_depth         = 10;
+    double aspect_ratio = 1.0;
+    int image_width = 100;
+    int samples_per_pixel = 10;
+    int max_depth = 10;
+    int fps = 30;
 
     double vfov = 90;
     point3 lookfrom = point3(0,0,-1);
     point3 lookat   = point3(0,0,0);
     vec3   vup      = vec3(0,1,0);
 
-    void render(const Hittable &world);
+    void render(const Hittable &world, int frame, int n_frames);
 
   private:
     int    image_height;
@@ -34,3 +35,5 @@ class Camera {
 
     color ray_color(const Ray &r, int depth, const Hittable &world) const;
 };
+
+template<typename ... Args> std::string string_format(const std::string& format, Args ... args);
