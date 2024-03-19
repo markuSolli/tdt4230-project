@@ -1,5 +1,8 @@
 #include "camera.h"
 
+#include <fstream>
+#include <iostream>
+
 #include "util.h"
 #include "interval.h"
 #include "material.h"
@@ -7,7 +10,10 @@
 void Camera::render(const Hittable &world) {
     initialize();
 
-    std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+    std::ofstream outfile;
+    outfile.open("data/frames/0001.ppm", std::ios::binary);
+
+    outfile << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
     for (int j = 0; j < image_height; ++j) {
         std::clog << "\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
@@ -17,11 +23,13 @@ void Camera::render(const Hittable &world) {
                 Ray r = get_ray(i, j);
                 pixel_color += ray_color(r, max_depth, world);
             }
-            write_color(std::cout, pixel_color, samples_per_pixel);
+            write_color(outfile, pixel_color, samples_per_pixel);
         }
     }
 
     std::clog << "\rDone.                 \n";
+
+    outfile.close();
 }
 
 void Camera::initialize() {

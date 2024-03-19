@@ -42,10 +42,8 @@ add_executable (${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS} ${PROJECT_
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT graphics_project)
 
 add_custom_target(image
-    COMMAND ./graphics_project > image.ppm
-    COMMAND ffmpeg -y -i image.ppm image.png -loglevel quiet
-    COMMAND sudo open image.png
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/convert_to_png.sh
     DEPENDS ${PROJECT_NAME}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    COMMENT "Generate image and open"
+    COMMENT "Converting to png"
 )
