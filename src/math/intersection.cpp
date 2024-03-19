@@ -1,9 +1,7 @@
-#include "triangle.h"
-
-Triangle::Triangle(point3 _a, point3 _b, point3 _c, shared_ptr<Material> _material) : a(_a), b(_b), c(_c), mat(_material) {}
+#include "intersection.h"
 
 // Möller–Trumbore intersection algorithm
-bool Triangle::hit(const Ray &r, Interval ray_t, HitRecord &rec) const {
+bool ray_triangle_intersect(const Ray &r, Interval ray_t, HitRecord &rec, vec3 a, vec3 b, vec3 c) {
     double epsilon = std::numeric_limits<double>::epsilon();
 
     vec3 edge1 = b - a;
@@ -41,6 +39,5 @@ bool Triangle::hit(const Ray &r, Interval ray_t, HitRecord &rec) const {
     rec.p = r.at(rec.t);
     vec3 outward_normal = unit_vector(cross(edge1, edge2));
     rec.set_face_normal(r, outward_normal);
-    rec.mat = mat;
     return true;
 }

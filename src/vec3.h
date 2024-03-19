@@ -10,6 +10,8 @@ class vec3 {
     vec3();
     vec3(double _x, double _y, double _z);
 
+    double get(int i);
+
     vec3 operator-() const;
 
     vec3& operator+=(const vec3 &v);

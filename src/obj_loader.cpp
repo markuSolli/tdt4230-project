@@ -9,7 +9,7 @@ using std::ifstream;
 using std::string;
 using std::istringstream;
 
-void load_obj(const char* filepath, std::vector<vec3> &vertices, std::vector<vec3i> &indices) {
+void load_obj(const char* filepath, std::vector<vec3> &vertices, std::vector<vec3i> &indices, Interval &ix, Interval &iy, Interval &iz) {
     ifstream file(filepath);
 
     string line;
@@ -21,6 +21,13 @@ void load_obj(const char* filepath, std::vector<vec3> &vertices, std::vector<vec
             l >> x; l >> y; l >> z;
 
             vertices.push_back(vec3(x, y, z));
+
+            if (x < ix.min) ix.min = x;
+            if (x > ix.max) ix.max = x;
+            if (y < iy.min) iy.min = y;
+            if (y > iy.max) iy.max = y;
+            if (z < iz.min) iz.min = z;
+            if (z > iz.max) iz.max = z;
         } else if (line.substr(0, 2) == "f ") {
             const char* l = line.c_str();
             int a, b, c;

@@ -6,6 +6,18 @@ vec3::vec3() : x(0), y(0), z(0) {}
 
 vec3::vec3(double _x, double _y, double _z) : x(_x), y(_y), z(_z) {}
 
+double vec3::get(int i) {
+    if (i == 0) {
+        return x;
+    } else if (i == 1) {
+        return y;
+    } else if (i == 2) {
+        return z;
+    }
+
+    return 0;
+}
+
 vec3 vec3::operator-() const { return vec3(-x, -y, -z); }
 
 vec3& vec3::operator+=(const vec3 &v) {

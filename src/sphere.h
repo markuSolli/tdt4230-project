@@ -5,6 +5,7 @@
 #include "hittable.h"
 #include "ray.h"
 #include "interval.h"
+#include "aabb.h"
 
 using std::shared_ptr;
 
@@ -18,4 +19,5 @@ class Sphere : public Hittable {
     point3 center;
     double radius;
     shared_ptr<Material> mat;
+    AABB bbox;
 };

@@ -10,11 +10,17 @@ class Interval {
 
     Interval(double _min, double _max);
 
+    Interval(const Interval& a, const Interval& b);
+
     bool contains(double x) const;
 
     bool surrounds(double x) const;
 
     double clamp(double x) const;
+
+    double size() const;
+
+    Interval expand(double delta) const;
 
     static const Interval empty, universe;
 };

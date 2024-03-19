@@ -1,8 +1,15 @@
 #include "sphere.h"
 
-Sphere::Sphere(point3 _center, double _radius, shared_ptr<Material> _material) : center(_center), radius(_radius), mat(_material) {}
+Sphere::Sphere(point3 _center, double _radius, shared_ptr<Material> _material) : center(_center), radius(_radius), mat(_material) {
+    vec3 rvec = vec3(radius, radius, radius);
+    bbox = AABB(center - rvec, center + rvec);
+}
 
 bool Sphere::hit(const Ray &r, Interval ray_t, HitRecord &rec) const {
+    if (!bbox.hit(r, ray_t)) {
+        return false;
+    }
+    
     vec3 oc = r.origin() - center;
     double a = r.direction().length_squared();
     double half_b = dot(oc, r.direction());
