@@ -26,8 +26,8 @@ int main() {
     Camera cam;
 
     cam.aspect_ratio      = 16.0 / 9.0;
-    cam.image_width       = 360;
-    cam.samples_per_pixel = 256;
+    cam.image_width       = 720;
+    cam.samples_per_pixel = 512;
     cam.max_depth         = 32;
     cam.fps               = 30;
 
@@ -35,7 +35,7 @@ int main() {
     cam.lookfrom = point3(0, 0.4, 3.5);
     cam.lookat   = point3(0, 0, 0);
     cam.vup      = vec3(0, 1, 0);
-    cam.background = color(0.1, 0.1, 0.5);
+    cam.background = color(0.2, 0.2, 0.2);
 
     auto start = steady_clock::now();
 

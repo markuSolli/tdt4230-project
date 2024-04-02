@@ -58,3 +58,33 @@ class DiffuseLight : public Material {
   private:
     color c;
 };
+
+class GeneralMaterial {
+  public:
+    color ambient;
+    color emission;
+    color diffuse;
+    color specular;
+    double specular_exponent;
+    double dissolve;
+    color transmission_filter;
+    double index_of_refraction;
+
+    GeneralMaterial();
+    GeneralMaterial(color ambient, 
+                    color emission, 
+                    color diffuse, 
+                    color specular, 
+                    double specular_exponent, 
+                    double dissolve, 
+                    color transmission_filter, 
+                    double index_of_refraction);
+    
+    bool scatter_ray(const Ray& r_in, const HitRecord& rec, color& attenuation, Ray& scattered) const;
+
+    bool reflect_ray(const Ray& r_in, const HitRecord& rec, color& attenuation, Ray& scattered) const;
+
+    bool refract_ray(const Ray& r_in, const HitRecord& rec, color& attenuation, Ray& scattered) const;
+  private:
+    static double reflectance(double cosine, double ref_idx);
+};
