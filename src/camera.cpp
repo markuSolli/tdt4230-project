@@ -88,18 +88,20 @@ color Camera::ray_color(const Ray &r, int depth, const Hittable &world) const {
     // If we've exceeded the ray bounce limit, no more light is gathered.
     if (depth <= 0)
         return color(0,0,0);
+    
+    // If the ray hits nothing, return the background color.
+    if (!world.hit(r, Interval(0.001, INF), rec))
+        return background;
+    
+    Ray scattered;
+    color attenuation;
+    color color_from_emission = rec.mat->emitted();
 
-    if (world.hit(r, Interval(0.001, INF), rec)) {
-        Ray scattered;
-        color attenuation;
-        if (rec.mat->scatter(r, rec, attenuation, scattered))
-            return attenuation * ray_color(scattered, depth-1, world);
-        return color(0,0,0);
-    }
-
-    vec3 unit_direction = unit_vector(r.direction());
-    double a = 0.5*(unit_direction.y + 1.0);
-    return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.5, 0.7, 1.0);
+    if (!rec.mat->scatter(r, rec, attenuation, scattered))
+        return color_from_emission;
+    
+    color color_from_scatter = attenuation * ray_color(scattered, depth-1, world);
+    return color_from_emission + color_from_scatter;
 }
 
 template<typename ... Args>

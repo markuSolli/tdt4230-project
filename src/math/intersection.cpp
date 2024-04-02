@@ -1,7 +1,7 @@
 #include "intersection.h"
 
 // Möller–Trumbore intersection algorithm
-bool ray_triangle_intersect(const Ray &r, Interval ray_t, HitRecord &rec, vec3 a, vec3 b, vec3 c) {
+bool ray_triangle_intersect(const Ray &r, Interval ray_t, HitRecord &rec, const vec3 &a, const vec3 &b, const vec3 &c) {
     double epsilon = std::numeric_limits<double>::epsilon();
 
     vec3 edge1 = b - a;
