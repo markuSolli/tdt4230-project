@@ -26,6 +26,10 @@ double Interval::size() const {
     return max - min;
 }
 
+double Interval::midpoint() const {
+    return ((max - min) / 2) + min;
+}
+
 Interval Interval::expand(double delta) const {
     double padding = delta / 2;
     return Interval(min - padding, max + padding);

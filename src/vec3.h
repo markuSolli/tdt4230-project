@@ -37,6 +37,8 @@ class vec3i {
 
   vec3i();
   vec3i(int _x, int _y, int _z);
+
+  int get(int i);
 };
 
 // point3 is just an alias for vec3, but useful for geometric clarity in the code.

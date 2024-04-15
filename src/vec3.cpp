@@ -63,6 +63,18 @@ vec3i::vec3i() : x(0), y(0), z(0) {}
 
 vec3i::vec3i(int _x, int _y, int _z) : x(_x), y(_y), z(_z) {}
 
+int vec3i::get(int i) {
+    if (i == 0) {
+        return x;
+    } else if (i == 1) {
+        return y;
+    } else if (i == 2) {
+        return z;
+    }
+
+    return 0;
+}
+
 // point3 is just an alias for vec3, but useful for geometric clarity in the code.
 using point3 = vec3;
 

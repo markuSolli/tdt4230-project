@@ -20,6 +20,8 @@ class Interval {
 
     double size() const;
 
+    double midpoint() const;
+
     Interval expand(double delta) const;
 
     static const Interval empty, universe;
