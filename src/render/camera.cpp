@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "render/camera.h"
 
 #include <fstream>
 #include <iostream>
@@ -6,9 +6,9 @@
 #include <string>
 #include <stdexcept>
 
-#include "util.h"
-#include "interval.h"
-#include "material.h"
+#include "math/util.h"
+#include "math/interval.h"
+#include "scene/material.h"
 
 void Camera::render(const Hittable &world, int frame, int n_frames) {
     initialize();

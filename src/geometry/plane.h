@@ -2,10 +2,10 @@
 
 #include <memory>
 
-#include "hittable.h"
-#include "ray.h"
-#include "interval.h"
-#include "material.h"
+#include "scene/hittable.h"
+#include "render/ray.h"
+#include "math/interval.h"
+#include "scene/material.h"
 
 using std::shared_ptr;
 

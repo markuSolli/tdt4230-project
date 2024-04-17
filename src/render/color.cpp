@@ -1,8 +1,8 @@
-#include "color.h"
+#include "render/color.h"
 
 #include <iostream>
 
-#include "interval.h"
+#include "math/interval.h"
 
 double linear_to_gamma(double linear_component) {
     return sqrt(linear_component);

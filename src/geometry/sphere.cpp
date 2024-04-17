@@ -1,4 +1,4 @@
-#include "sphere.h"
+#include "geometry/sphere.h"
 
 Sphere::Sphere(point3 _center, double _radius, shared_ptr<Material> _material) : center(_center), radius(_radius), mat(_material) {
     vec3 rvec = vec3(radius, radius, radius);

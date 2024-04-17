@@ -1,11 +1,11 @@
 #include <chrono>
 
-#include "hittable_list.h"
+#include "scene/hittable_list.h"
 #include "geometry/sphere.h"
-#include "material.h"
-#include "camera.h"
-#include "octree.h"
-#include "mesh.h"
+#include "scene/material.h"
+#include "render/camera.h"
+#include "scene/octree.h"
+#include "scene/mesh.h"
 #include "geometry/plane.h"
 
 using namespace std::chrono;
@@ -37,8 +37,8 @@ int main() {
     Camera cam;
 
     cam.aspect_ratio      = 16.0 / 9.0;
-    cam.image_width       = 720;
-    cam.samples_per_pixel = 1024;
+    cam.image_width       = 360;
+    cam.samples_per_pixel = 128;
     cam.max_depth         = 32;
     cam.fps               = 30;
 

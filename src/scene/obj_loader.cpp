@@ -1,4 +1,4 @@
-#include "obj_loader.h"
+#include "scene/obj_loader.h"
 
 #include <fstream>
 #include <string>

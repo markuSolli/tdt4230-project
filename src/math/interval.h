@@ -1,6 +1,6 @@
 #pragma once
 
-#include "util.h"
+#include "math/util.h"
 
 class Interval {
   public:

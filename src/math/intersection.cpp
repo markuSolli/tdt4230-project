@@ -1,4 +1,4 @@
-#include "intersection.h"
+#include "math/intersection.h"
 
 // Möller–Trumbore intersection algorithm
 bool ray_triangle_intersect(const Ray &r, Interval ray_t, HitRecord &rec, const vec3 &a, const vec3 &b, const vec3 &c) {

@@ -2,9 +2,9 @@
 
 #include <memory>
 
-#include "interval.h"
-#include "ray.h"
-#include "material.h"
+#include "math/interval.h"
+#include "render/ray.h"
+#include "scene/material.h"
 
 using std::shared_ptr;
 

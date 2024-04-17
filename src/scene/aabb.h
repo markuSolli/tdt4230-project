@@ -1,8 +1,8 @@
 #pragma once
 
-#include "interval.h"
-#include "ray.h"
-#include "vec3.h"
+#include "math/interval.h"
+#include "render/ray.h"
+#include "geometry/vec3.h"
 
 class AABB {
   public:

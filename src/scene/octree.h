@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "hittable.h"
-#include "aabb.h"
+#include "scene/hittable.h"
+#include "scene/aabb.h"
 
 class Octree: public Hittable {
   public:

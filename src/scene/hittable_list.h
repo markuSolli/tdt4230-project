@@ -3,9 +3,9 @@
 #include <memory>
 #include <vector>
 
-#include "hittable.h"
-#include "ray.h"
-#include "interval.h"
+#include "scene/hittable.h"
+#include "render/ray.h"
+#include "math/interval.h"
 
 using std::shared_ptr;
 using std::make_shared;

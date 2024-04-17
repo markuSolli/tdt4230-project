@@ -1,6 +1,6 @@
-#include "mesh.h"
+#include "scene/mesh.h"
 
-#include "obj_loader.h"
+#include "scene/obj_loader.h"
 #include "math/intersection.h"
 
 Mesh::Mesh(const char* filepath, shared_ptr<Material> _material, point3 position) : mat(_material) {

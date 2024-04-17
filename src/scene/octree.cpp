@@ -1,8 +1,8 @@
-#include "octree.h"
+#include "scene/octree.h"
 
 #include <memory>
 
-#include "obj_loader.h"
+#include "scene/obj_loader.h"
 #include "math/intersection.h"
 
 void adjust_bbox(AABB &bbox, std::vector<vec3i> &indices, shared_ptr<std::vector<vec3>> vertices) {

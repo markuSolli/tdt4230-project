@@ -1,8 +1,8 @@
 #pragma once
 
-#include "ray.h"
-#include "hittable.h"
-#include "color.h"
+#include "render/ray.h"
+#include "scene/hittable.h"
+#include "render/color.h"
 
 class HitRecord;
 

@@ -1,4 +1,4 @@
-#include "interval.h"
+#include "math/interval.h"
 
 #include <cmath>
 

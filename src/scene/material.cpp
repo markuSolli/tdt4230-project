@@ -1,6 +1,6 @@
-#include "material.h"
+#include "scene/material.h"
 
-#include "util.h"
+#include "math/util.h"
 
 Lambertian::Lambertian(const color &a) : albedo(a) {}
 
