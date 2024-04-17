@@ -18,7 +18,7 @@ int main() {
     auto material_plate = make_shared<Lambertian>(color(0.9, 0.9, 0.9));
     auto material_glass = make_shared<Dielectric>(color(0.9, 1.0, 0.9), 1.3);
     auto material_bowl = make_shared<Metal>(color(0.8, 0.8, 0.8), 0.5);
-    auto material_sun = make_shared<DiffuseLight>(color(1.0, 1.0, 1.0), 2.0);
+    auto material_sun = make_shared<DiffuseLight>(color(1.0, 1.0, 1.0), 0.5);
     auto material_light = make_shared<DiffuseLight>(color(1.0, 1.0, 1.0), 4.0);
 
     world.add(make_shared<Plane>(point3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), material_ground));
@@ -38,7 +38,7 @@ int main() {
     Camera cam;
 
     cam.aspect_ratio      = 16.0 / 9.0;
-    cam.image_width       = 720;
+    cam.image_width       = 360;
     cam.samples_per_pixel = 128;
     cam.max_depth         = 32;
     cam.fps               = 30;

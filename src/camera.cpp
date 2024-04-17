@@ -21,12 +21,20 @@ void Camera::render(const Hittable &world, int frame, int n_frames) {
     for (int j = 0; j < image_height; ++j) {
         std::clog << "\rFrames remaining: " << (n_frames - frame) << ", Scanlines remaining: " << (image_height - j) << ' ' << std::flush;
         for (int i = 0; i < image_width; ++i) {
-            color pixel_color(0, 0, 0);
+            double pixel_red = 0.0;
+            double pixel_green = 0.0;
+            double pixel_blue = 0.0;
 
+            #pragma omp parallel for reduction(+ : pixel_red, pixel_green, pixel_blue)
             for (int sample = 0; sample < samples_per_pixel; ++sample) {
                 Ray r = get_ray(i, j);
-                pixel_color += ray_color(r, max_depth, world);
+                color local_color = ray_color(r, max_depth, world);
+                pixel_red += local_color.x;
+                pixel_green += local_color.y;
+                pixel_blue += local_color.z;
             }
+
+            color pixel_color = color(pixel_red, pixel_green, pixel_blue);
             write_color(outfile, pixel_color, samples_per_pixel);
         }
     }
