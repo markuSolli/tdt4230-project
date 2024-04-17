@@ -6,12 +6,13 @@
 #include "ray.h"
 #include "interval.h"
 #include "aabb.h"
+#include "material.h"
 
 using std::shared_ptr;
 
 class Sphere : public Hittable {
   public:
-    Sphere(point3 _center, double _radius, shared_ptr<Material> _material);
+    Sphere(point3 center, double radius, shared_ptr<Material> material);
 
     bool hit(const Ray &r, Interval ray_t, HitRecord &rec) const override;
 

@@ -12,7 +12,7 @@ class Octree: public Hittable {
     bool hit(const Ray &r, Interval ray_t, HitRecord &rec) const override;
 
   private:
-    std::vector<vec3> vertices;
+    shared_ptr<std::vector<vec3>> vertices;
     std::vector<shared_ptr<Hittable>> nodes;
     shared_ptr<Material> mat;
     AABB bbox;
@@ -20,24 +20,23 @@ class Octree: public Hittable {
 
 class OctreeNode: public Hittable {
   public:
-    OctreeNode(std::vector<vec3> &vertices, std::vector<vec3i> indices, AABB bbox, size_t limit);
+    OctreeNode(shared_ptr<std::vector<vec3>> vertices, std::vector<vec3i> indices, AABB bbox, size_t limit);
 
     bool hit(const Ray &r, Interval ray_t, HitRecord &rec) const override;
 
   private:
-    std::vector<vec3> &vertices;
     std::vector<shared_ptr<Hittable>> nodes;
     AABB bbox;
 };
 
 class OctreeLeaf: public Hittable {
   public:
-    OctreeLeaf(std::vector<vec3> &vertices, std::vector<vec3i> indices, AABB bbox);
+    OctreeLeaf(shared_ptr<std::vector<vec3>> vertices, std::vector<vec3i> indices, AABB bbox);
 
     bool hit(const Ray &r, Interval ray_t, HitRecord &rec) const override;
 
   private:
-    std::vector<vec3> &vertices;
+    shared_ptr<std::vector<vec3>> vertices;
     std::vector<vec3i> indices;
     AABB bbox;
 };

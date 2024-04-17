@@ -4,6 +4,7 @@
 
 #include "interval.h"
 #include "ray.h"
+#include "material.h"
 
 using std::shared_ptr;
 

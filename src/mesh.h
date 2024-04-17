@@ -7,7 +7,7 @@
 
 class Mesh : public Hittable {
   public:
-    Mesh(const char* filepath, shared_ptr<Material> _material);
+    Mesh(const char* filepath, shared_ptr<Material> material, point3 position);
 
     bool hit(const Ray &r, Interval ray_t, HitRecord &rec) const override;
 

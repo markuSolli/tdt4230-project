@@ -3,7 +3,7 @@
 #include "obj_loader.h"
 #include "math/intersection.h"
 
-Mesh::Mesh(const char* filepath, shared_ptr<Material> _material) : mat(_material) {
+Mesh::Mesh(const char* filepath, shared_ptr<Material> _material, point3 position) : mat(_material) {
     vertices = std::vector<vec3>();
     indices = std::vector<vec3i>();
     Interval ix = Interval();
@@ -11,6 +11,14 @@ Mesh::Mesh(const char* filepath, shared_ptr<Material> _material) : mat(_material
     Interval iz = Interval();
 
     load_obj(filepath, vertices, indices, ix, iy, iz);
+
+    for (size_t i = 0; i < vertices.size(); i++) {
+        vertices[i] += position;
+    }
+
+    ix += position.x;
+    iy += position.y;
+    iz += position.z;
 
     bbox = AABB(ix, iy, iz);
 }

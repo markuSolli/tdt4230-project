@@ -4,6 +4,8 @@
 #include "hittable.h"
 #include "color.h"
 
+class HitRecord;
+
 class Material {
   public:
     virtual ~Material() = default;
@@ -38,11 +40,12 @@ class Metal : public Material {
 
 class Dielectric : public Material {
   public:
-    Dielectric(double index_of_refraction);
+    Dielectric(color albedo, double index_of_refraction);
 
     bool scatter(const Ray &r_in, const HitRecord &rec, color &attenuation, Ray &scattered) const override;
 
   private:
+    color albedo;
     double ir;
 
     static double reflectance(double cosine, double ref_idx);
@@ -50,41 +53,12 @@ class Dielectric : public Material {
 
 class DiffuseLight : public Material {
   public:
-    DiffuseLight(color c);
+    DiffuseLight(color albedo, double strength);
 
     bool scatter(const Ray& r_in, const HitRecord& rec, color& attenuation, Ray& scattered) const override;
 
     color emitted() const override;
   private:
-    color c;
-};
-
-class GeneralMaterial {
-  public:
-    color ambient;
-    color emission;
-    color diffuse;
-    color specular;
-    double specular_exponent;
-    double dissolve;
-    color transmission_filter;
-    double index_of_refraction;
-
-    GeneralMaterial();
-    GeneralMaterial(color ambient, 
-                    color emission, 
-                    color diffuse, 
-                    color specular, 
-                    double specular_exponent, 
-                    double dissolve, 
-                    color transmission_filter, 
-                    double index_of_refraction);
-    
-    bool scatter_ray(const Ray& r_in, const HitRecord& rec, color& attenuation, Ray& scattered) const;
-
-    bool reflect_ray(const Ray& r_in, const HitRecord& rec, color& attenuation, Ray& scattered) const;
-
-    bool refract_ray(const Ray& r_in, const HitRecord& rec, color& attenuation, Ray& scattered) const;
-  private:
-    static double reflectance(double cosine, double ref_idx);
+    color albedo;
+    double strength;
 };

@@ -8,6 +8,12 @@ Interval::Interval(double _min, double _max) : min(_min), max(_max) {}
 
 Interval::Interval(const Interval& a, const Interval& b) : min(fmin(a.min, b.min)), max(fmax(a.max, b.max)) {}
 
+Interval& Interval::operator+=(const double &d) {
+    min += d;
+    max += d;
+    return *this;
+}
+
 bool Interval::contains(double x) const {
     return min <= x && x <= max;
 }
@@ -33,4 +39,8 @@ double Interval::midpoint() const {
 Interval Interval::expand(double delta) const {
     double padding = delta / 2;
     return Interval(min - padding, max + padding);
+}
+
+Interval operator+(const Interval &i, const double &d) {
+    return Interval(i.min + d, i.max + d);
 }
