@@ -56,39 +56,38 @@ void Camera::initialize() {
     double viewport_width = viewport_height * (static_cast<double>(image_width)/image_height);
 
     // Calculate the u,v,w unit basis vectors for the camera coordinate frame.
-    w = unit_vector(lookfrom - lookat);
-    u = unit_vector(cross(vup, w));
-    v = cross(w, u);
+    n = unit_vector(lookfrom - lookat);
+    u = unit_vector(cross(vup, n));
+    v = cross(n, u);
 
     // Calculate the vectors across the horizontal and down the vertical viewport edges.
     vec3 viewport_u = viewport_width * u;
     vec3 viewport_v = viewport_height * -v;
 
     // Calculate the horizontal and vertical delta vectors from pixel to pixel.
-    pixel_delta_u = viewport_u / image_width;
-    pixel_delta_v = viewport_v / image_height;
+    delta_u = viewport_u / image_width;
+    delta_v = viewport_v / image_height;
 
     // Calculate the location of the upper left pixel.
-    vec3 viewport_upper_left = center - (focal_length * w) - viewport_u/2 - viewport_v/2;
-    pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
+    vec3 viewport_upper_left = center - (focal_length * n) - viewport_u/2 - viewport_v/2;
+    pixel_upper_left = viewport_upper_left + 0.5 * (delta_u + delta_v);
 }
 
 Ray Camera::get_ray(int i, int j) const {
     // Get a randomly sampled camera ray for the pixel at location i,j.
-    auto pixel_center = pixel00_loc + (i * pixel_delta_u) + (j * pixel_delta_v);
-    auto pixel_sample = pixel_center + pixel_sample_square();
+    point3 pixel_sample = pixel_upper_left + (i * delta_u) + (j * delta_v) + pixel_sample_square();
 
-    auto ray_origin = center;
-    auto ray_direction = pixel_sample - ray_origin;
+    point3 ray_origin = center;
+    vec3 ray_direction = pixel_sample - ray_origin;
 
     return Ray(ray_origin, ray_direction);
 }
 
 vec3 Camera::pixel_sample_square() const {
     // Returns a random point in the square surrounding a pixel at the origin.
-    auto px = -0.5 + random_double();
-    auto py = -0.5 + random_double();
-    return (px * pixel_delta_u) + (py * pixel_delta_v);
+    double px = -0.5 + random_double();
+    double py = -0.5 + random_double();
+    return (px * delta_u) + (py * delta_v);
 }
 
 color Camera::ray_color(const Ray &r, int depth, const Hittable &world) const {

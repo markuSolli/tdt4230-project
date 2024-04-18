@@ -17,9 +17,9 @@ class Material {
     }
 };
 
-class Lambertian : public Material {
+class DiffuseMaterial : public Material {
   public:
-    Lambertian(const color &a);
+    DiffuseMaterial(const color &a);
 
     bool scatter(const Ray &r_in, const HitRecord &rec, color &attenuation, Ray &scattered) const override;
 
@@ -27,9 +27,9 @@ class Lambertian : public Material {
     color albedo;
 };
 
-class Metal : public Material {
+class SpecularMaterial : public Material {
   public:
-    Metal(const color &a, double f);
+    SpecularMaterial(const color &a, double f);
 
     bool scatter(const Ray &r_in, const HitRecord &rec, color &attenuation, Ray &scattered) const override;
 
@@ -38,9 +38,9 @@ class Metal : public Material {
     double fuzz;
 };
 
-class Dielectric : public Material {
+class RefractiveMaterial : public Material {
   public:
-    Dielectric(color albedo, double index_of_refraction);
+    RefractiveMaterial(color albedo, double index_of_refraction);
 
     bool scatter(const Ray &r_in, const HitRecord &rec, color &attenuation, Ray &scattered) const override;
 
@@ -51,9 +51,9 @@ class Dielectric : public Material {
     static double reflectance(double cosine, double ref_idx);
 };
 
-class DiffuseLight : public Material {
+class EmissiveMaterial : public Material {
   public:
-    DiffuseLight(color albedo, double strength);
+    EmissiveMaterial(color albedo, double strength);
 
     bool scatter(const Ray& r_in, const HitRecord& rec, color& attenuation, Ray& scattered) const override;
 

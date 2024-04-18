@@ -23,10 +23,10 @@ class Camera {
   private:
     int    image_height;
     point3 center;
-    point3 pixel00_loc;
-    vec3   pixel_delta_u;
-    vec3   pixel_delta_v;
-    vec3   u, v, w;
+    point3 pixel_upper_left;
+    vec3   delta_u;
+    vec3   delta_v;
+    vec3   n, u, v;
 
     void initialize();
 

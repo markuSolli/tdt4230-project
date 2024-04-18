@@ -2,9 +2,9 @@
 
 #include "math/util.h"
 
-Lambertian::Lambertian(const color &a) : albedo(a) {}
+DiffuseMaterial::DiffuseMaterial(const color &a) : albedo(a) {}
 
-bool Lambertian::scatter(const Ray &r_in, const HitRecord &rec, color &attenuation, Ray &scattered) const {
+bool DiffuseMaterial::scatter(const Ray &r_in, const HitRecord &rec, color &attenuation, Ray &scattered) const {
     vec3 scatter_direction = rec.normal + random_unit_vector();
 
     // Catch bad scatter direction
@@ -16,18 +16,18 @@ bool Lambertian::scatter(const Ray &r_in, const HitRecord &rec, color &attenuati
     return true;
 }
 
-Metal::Metal(const color &a, double f) : albedo(a), fuzz(f < 1 ? f : 1) {}
+SpecularMaterial::SpecularMaterial(const color &a, double f) : albedo(a), fuzz(f < 1 ? f : 1) {}
 
-bool Metal::scatter(const Ray &r_in, const HitRecord &rec, color &attenuation, Ray &scattered) const {
+bool SpecularMaterial::scatter(const Ray &r_in, const HitRecord &rec, color &attenuation, Ray &scattered) const {
     vec3 reflected = reflect(unit_vector(r_in.direction()), rec.normal);
     scattered = Ray(rec.p, reflected + fuzz * random_unit_vector());
     attenuation = albedo;
     return (dot(scattered.direction(), rec.normal) > 0);
 }
 
-Dielectric::Dielectric(color _albedo, double index_of_refraction) : albedo(_albedo), ir(index_of_refraction) {}
+RefractiveMaterial::RefractiveMaterial(color _albedo, double index_of_refraction) : albedo(_albedo), ir(index_of_refraction) {}
 
-bool Dielectric::scatter(const Ray &r_in, const HitRecord &rec, color &attenuation, Ray &scattered) const {
+bool RefractiveMaterial::scatter(const Ray &r_in, const HitRecord &rec, color &attenuation, Ray &scattered) const {
     attenuation = albedo;
     double refraction_ratio = rec.front_face ? (1.0/ir) : ir;
 
@@ -47,19 +47,19 @@ bool Dielectric::scatter(const Ray &r_in, const HitRecord &rec, color &attenuati
     return true;
 }
 
-double Dielectric::reflectance(double cosine, double ref_idx) {
+double RefractiveMaterial::reflectance(double cosine, double ref_idx) {
     // Use Schlick's approximation for reflectance.
     double r0 = (1-ref_idx) / (1+ref_idx);
     r0 = r0*r0;
     return r0 + (1-r0)*pow((1 - cosine),5);
 }
 
-DiffuseLight::DiffuseLight(color _albedo, double _strength) : albedo(_albedo), strength(_strength) {}
+EmissiveMaterial::EmissiveMaterial(color _albedo, double _strength) : albedo(_albedo), strength(_strength) {}
 
-bool DiffuseLight::scatter(const Ray& r_in, const HitRecord& rec, color& attenuation, Ray& scattered) const {
+bool EmissiveMaterial::scatter(const Ray& r_in, const HitRecord& rec, color& attenuation, Ray& scattered) const {
     return false;
 }
 
-color DiffuseLight::emitted() const {
+color EmissiveMaterial::emitted() const {
     return albedo * strength;
 }
