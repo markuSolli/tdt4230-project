@@ -31,3 +31,4 @@ make video
 ## Resources used
 - Base rendering code from [_Ray Tracing in One Weekend_](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
 - AABB and lighting from [_Ray Tracing: The Next Week_](https://raytracing.github.io/books/RayTracingTheNextWeek.html)
+- 3D models from [Low Poly Household Items](https://lowpolyassets.itch.io/low-poly-household-item-pack)
